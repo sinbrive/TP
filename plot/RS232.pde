@@ -10,7 +10,7 @@ void initIHMSerie()
 {
   // création des widgets permettant le choix de la liaison série
   listePortSerie = cp5.addScrollableList("Choisir Port Serie")
-    .setPosition(20, 20)
+    .setPosition(60, 40)
     .setSize(130, 40)
     .setBarHeight(20)
     .setItemHeight(20)
@@ -30,13 +30,13 @@ void initIHMSerie()
 
   cp5.addButton("OuvrirPortSerie")
     .setLabel("Ouvrir le port Serie")
-    .setPosition(160, 20)
+    .setPosition(200, 40)
     .setSize(115, 20)
     ;
 
   cp5.addButton("FermerPortSerie")
     .setLabel("Fermer le port Serie")
-    .setPosition(285, 20)
+    .setPosition(325, 40)
     .setSize(115, 20)
     ;
 }

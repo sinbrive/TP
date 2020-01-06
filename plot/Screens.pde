@@ -1,22 +1,20 @@
 
+/////////////////////////////////////
+void screenBinary() {
 
-void screenOne() {
-
-  background(0);
+  setFieldVisible(true);
+  
+  LSB=1;
+    
+  cp5.get(Slider.class, "Tension (milliV)").setVisible(false);
+  cp5.get(Numberbox.class, "quantum (mv)").setVisible(false); 
+  
+    
 
   fill(255, 255, 0);
   textSize(20);
-  text ("Sortie CAN", 160, 175);
-  text ("Tension(mV)", 30, 175);
-
-  //title.append(Integer.toBinaryString(adc));
-  if (portSerie != null) {
-    if (adcOK) {
-      adc = Integer.parseInt(trameN);
-      tension = floor(Float.parseFloat(trameV));
-      adcOK=false;
-    }
-  }
+  text ("Binaire", 160, 175);
+  text ("Décimal", 30, 175);
 
   String s = Integer.toBinaryString(adc);
   s = "00000000000"+s;
@@ -43,7 +41,7 @@ void screenOne() {
   // affichage de la nomenclature couleur
   textSize(15);
   fill(255, 255, 0);
-  text ("Couleurs des poids", 120, 490);
+  text ("Couleurs des poids", 90, 490);
 
   stroke(255);
   for (int i=0; i<10; i++) {  
@@ -59,16 +57,10 @@ void screenOne() {
   }
 }
 
-///
-color getCol(int adc, int i) {
-  if ((adc >> i & 1) == 1) {
-    return col[i];
-  }
-  return color(150);
-}
 
 
-void screenSecond() {
+//////////////////////////////////////////////
+void screenCurve() {
 
   background(255);
   
@@ -80,7 +72,44 @@ void screenSecond() {
 }
 
 
+//////////////////////////////////////////////
+void screenComm() {
+  
+  setFieldVisible(true);
+  ////delay(5000);
+   
+  //cp5.get(Textarea.class, "debug").setVisible(true);
+  
+  //cp5.get(Textarea.class, "tension (mV)").setVisible(true);
+ 
+  //cp5.get(Numberbox.class, "quantum (mv)").setVisible(true); 
+  
+ 
+  //cp5.get(ScrollableList.class, "Choisir Port Serie").setVisible(true);
+  //cp5.get(Button.class, "OuvrirPortSerie").setVisible(true);
+  //cp5.get(Button.class, "FermerPortSerie").setVisible(true);
+
+ 
+}
+
+//////////////////////////////////////////////
+void screenSimu() {
+
+  setFieldVisible(true);
+ 
+}
+
+
+///
+color getCol(int adc, int i) {
+  if ((adc >> i & 1) == 1) {
+    return col[i];
+  }
+  return color(150);
+}
+
 void setFieldVisible(boolean f) {
+  
 
   cp5.get(Slider.class, "Tension (milliV)").setVisible(f);
   cp5.get(Textarea.class, "debug").setVisible(f);
@@ -91,7 +120,7 @@ void setFieldVisible(boolean f) {
   cp5.get(Button.class, "RAZ").setVisible(f);
   cp5.get(Numberbox.class, "quantum (mv)").setVisible(f); 
   cp5.get(Numberbox.class, "startValue(mV)").setVisible(f); 
-  cp5.get(Textfield.class, "Valeur tension (mV) ?").setVisible(f);
+  cp5.get(Textfield.class, "Valeur décimale ?").setVisible(f);
   cp5.get(ScrollableList.class, "Choisir Port Serie").setVisible(f);
   cp5.get(Button.class, "OuvrirPortSerie").setVisible(f);
   cp5.get(Button.class, "FermerPortSerie").setVisible(f);

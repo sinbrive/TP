@@ -9,9 +9,9 @@ Serial myPort;        // The serial port
 int yPos = 1;
 int xPos=1;
 
-final byte  SCREEN_1 =1;
-final byte  SCREEN_2 =2;
-final byte  SCREEN_3 =3;
+//final byte  SCREEN_1 =1;
+//final byte  SCREEN_2 =2;
+//final byte  SCREEN_3 =3;
 
 color[] col= new color[] {#FA5858, #FE9A2E, #F7FE2E, #2EFE2E, #F2F5A9, #58FAD0, #CC2EFA, #FE2E9A, #FE2E00, #FA0058};
 
@@ -23,7 +23,7 @@ boolean adcOK=false;
 String trameN="0", trameV="0";
 float tension=0.0;
 
-int machineState=SCREEN_1;
+int machineState=1;
 
 Toggle[] togl = new Toggle[10];
 
@@ -39,6 +39,11 @@ void setup () {
   PFont font = createFont("arial", 15);
 
   initIHMSerie();
+
+  cp5.getTab("default").activateEvent(true).setLabel("Binaire").setId(1).setWidth(width/5).setHeight(20);
+  cp5.addTab("Courbe").activateEvent(true).setId(2).setWidth(width/5).setHeight(20);
+  cp5.addTab("Communication").activateEvent(true).setId(3).setWidth(width/5).setHeight(20);
+  cp5.addTab("Simulation").activateEvent(true).setId(4).setWidth(width/5).setHeight(20);
 
   tDebug = cp5.addTextarea("debug")
     .setPosition(10, height-40)
@@ -81,7 +86,7 @@ void setup () {
 
   // description : a bang controller triggers an event when pressed. 
   // parameters  : name, x, y, width, height
-  cp5.addBang("courbe", 450, 500, 20, 20);
+  //cp5.addBang("courbe", 450, 500, 20, 20);
 
   // description : box that displays a number. You can change the value by 
   //               click and hold in the box and drag the mouse up and down.
@@ -112,18 +117,13 @@ void setup () {
     ;
 
 
-  cp5.addTextfield("Valeur tension (mV) ?")
+  cp5.addTextfield("Valeur décimale ?")
     .setPosition(40, 300)
     .setSize(200, 40)
     .setFont(font)
     .setFocus(true)
     .setColor(color(255, 0, 0))
     ;
-
-  //  // parameters  : name, value (float), x, y, width, height
-  //   for(int i=0;i<col.length;i++) {
-  //  cp5.addBang(""+i,20+i*30,200,20,20).setId(i);
-  //}
 
 
   // description : a toggle can have two states, true and false
@@ -133,25 +133,22 @@ void setup () {
     fill(col[i]); 
     togl[i]=cp5.addToggle("   b"+i, false, 10+((10-i)*25), 250, 20, 20).setId(i);
   }
-    textFont(font);
+  textFont(font);
 
   // les widgets sont tous créés, on réactive les événements
- // cp5.setBroadcast(true);
-
+  // cp5.setBroadcast(true);
 }
 
 
 void draw () {
 
   background(0);
-  switch (machineState) {
-  case SCREEN_1 :
-    screenOne();
-    break;
-  case SCREEN_2 :
-    screenSecond();
-    break;
-  case SCREEN_3 :
-    break;
-  }
+  
+  switch(machineState) {
+        case 1: screenBinary(); break; 
+        case 2: screenCurve(); break;
+        case 3: screenComm(); break;       
+        case 4: screenSimu(); break; 
+      }
+      
 }
