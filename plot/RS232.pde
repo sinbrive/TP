@@ -57,8 +57,8 @@ void OuvrirPortSerie()
     } else
     {
       tDebug.append(" Ça a marché !\n");
-      adc=0; 
-      tension=0;
+
+
       cp5.get(Slider.class, "Tension (milliV)").setValue(0);
     }
   } else
@@ -90,15 +90,13 @@ void serialEvent(Serial p)
     tDebug.append("Trame reçue => "+messageRecep);
     list = split(messageRecep, ',');
     println(list.length);
-    if(list.length < 4) return;
- 
-    //if (trim(list[0]).equals("$T") == true) trameN = trim(list[1]);
-    //else trameN="0";
+    if(list.length < 6) return;
 
-    if (trim(list[0]).equals("$T") == true) trameT = trim(list[3]);
+    if (trim(list[0]).equals("$T") == true) {
+      trameT = messageRecep; //listtrim(list[3]);
+      trameValide=true;
+    }
     else trameT="0";
-    //println("\t"+trameN);
-
-    adcOK=true;
+    
   }
 }
