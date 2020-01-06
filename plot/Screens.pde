@@ -72,9 +72,9 @@ void screenComm() {
   textSize(15);
   text ("Température Reçue", 170, 195);
   
-  // affichage de la tension
+  // affichage de la température
   celsius.clear();
-  celsius.append(" "+ Float.toString(celsius_trame));  /// A FAIRE ENTRER PARAM CAPTEUR
+  celsius.append(" "+ trameT);  
 
 }
 

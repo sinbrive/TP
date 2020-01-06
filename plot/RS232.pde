@@ -88,15 +88,15 @@ void serialEvent(Serial p)
   if (messageRecep != null) { 
     tDebug.clear();
     tDebug.append("Trame reçue => "+messageRecep);
-    list = split(messageRecep, ':');
+    list = split(messageRecep, ',');
     println(list.length);
     if(list.length < 4) return;
  
-    if (trim(list[0]).equals("CAN") == true) trameN = trim(list[1]);
-    else trameN="0";
+    //if (trim(list[0]).equals("$T") == true) trameN = trim(list[1]);
+    //else trameN="0";
 
-    if (trim(list[2]).equals("Tension (mV)") == true) trameV = trim(list[3]);
-    else trameV="0";
+    if (trim(list[0]).equals("$T") == true) trameT = trim(list[3]);
+    else trameT="0";
     //println("\t"+trameN);
 
     adcOK=true;
