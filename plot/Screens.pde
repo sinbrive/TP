@@ -1,5 +1,5 @@
 
-/////////////////////////////////////
+//////////////////////////////////////////
 void screenBinary() {
 
   LSB=1;
@@ -20,8 +20,8 @@ void screenBinary() {
   adcValue.append(s);
 
   // affichage de la tension
-  tension_mV.clear();
-  tension_mV.append(" "+ Integer.toString(floor(tension)));
+  tension_mv.clear();
+  tension_mv.append(" "+ Integer.toString(floor(tension)));
 
   // affichage des bits sous forme de recttangle colorie
   for (int i=0; i<10; i++) {  
@@ -66,10 +66,16 @@ void screenCurve() {
 //////////////////////////////////////////////
 void screenComm() {
 
+   
   cp5.get(Textarea.class, "Température").moveTo("Communication");
   fill(255, 255, 0);
   textSize(15);
   text ("Température Reçue", 170, 195);
+  
+  // affichage de la tension
+  celsius.clear();
+  celsius.append(" "+ Float.toString(celsius_trame));  /// A FAIRE ENTRER PARAM CAPTEUR
+
 }
 
 //////////////////////////////////////////////
@@ -81,10 +87,26 @@ void screenSimu() {
  
   fill(255, 255, 0);
   textSize(15);
-  text ("CAN", 160, 175);  
-  text ("Température", 315, 175);
-}
+  text ("CAN", 180, 175);  
+  text ("Température", 320, 175);
+  
+  String s = Integer.toBinaryString(adc);
+  s = "00000000000"+s;
+  s = s.substring(s.length()-10);
 
+  // affichage de la sortie du CAN
+  adcValue.clear();
+  adcValue.append(s);
+
+  // affichage de la tension
+  tension_mv.clear();
+  tension_mv.append(" "+ Integer.toString(floor(tension)));
+  
+   // affichage de la tension
+  celsius.clear();
+  celsius.append(" "+ Float.toString(Math.round((tension/coefficient) * 100.0) / 100.0));  /// A FAIRE ENTRER PARAM CAPTEUR
+
+}
 
 ///
 color getCol(int adc, int i) {
@@ -97,9 +119,9 @@ color getCol(int adc, int i) {
 void placeItem() {
 
   cp5.get(Numberbox.class, "startValue(mV)").moveTo("default"); 
-  cp5.get(Textfield.class, "Valeur décimale ?").moveTo("default");
+  //cp5.get(Textfield.class, "Valeur décimale ?").moveTo("default");
   cp5.get(Textarea.class, "adcValue").moveTo("default");
-  cp5.get(Textarea.class, "tension (mV)").moveTo("default");
+  cp5.get(Textarea.class, "Tension").moveTo("default");
   cp5.get(Button.class, "Plus").moveTo("default");
   cp5.get(Button.class, "Moins").moveTo("default");
   cp5.get(Button.class, "RAZ").moveTo("default");
@@ -112,6 +134,7 @@ void placeItem() {
   cp5.get(Button.class, "OuvrirPortSerie").moveTo("Communication");
   cp5.get(Button.class, "FermerPortSerie").moveTo("Communication");
 
+  cp5.get(Numberbox.class, "coefficient en mv").moveTo("Simulation"); 
   cp5.get(Numberbox.class, "quantum (mv)").moveTo("Simulation"); 
   cp5.get(Textarea.class, "Température").moveTo("Simulation");
   cp5.get(Slider.class, "Tension (milliV)").moveTo("Simulation");

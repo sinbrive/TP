@@ -35,13 +35,14 @@ void controlEvent(ControlEvent theEvent) {
       //println(floor(tension));
     }
 
-    //if (theEvent.getController().getName()=="knob1") {
-    //  colors[5] = color(0, 0, theEvent.getController().getValue());
-    //}
-
     // number box
     if (theEvent.getController().getName()=="quantum (mv)") {
       LSB = theEvent.getController().getValue();
+    }
+    
+  // number box
+    if (theEvent.getController().getName()=="coefficient en mv") {
+      coefficient = theEvent.getController().getValue();
     }
 
 

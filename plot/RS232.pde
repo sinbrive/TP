@@ -100,8 +100,5 @@ void serialEvent(Serial p)
     //println("\t"+trameN);
 
     adcOK=true;
-    //xPos = Integer.parseInt(list[0]);
-    //yPos = Integer.parseInt(list[1]); //10*Float.valueOf(list[1]).floatValue();
-    //currentValue = map(currentValue, 0, 1023, 0, height);
   }
 }
