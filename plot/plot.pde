@@ -145,7 +145,7 @@ void setup () {
 void draw () {
 
   background(0);
-
+  
   switch(machineState) {
   case 1: 
     screenBinary(); 

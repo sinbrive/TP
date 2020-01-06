@@ -37,6 +37,7 @@ void drawCurve (int start, int spacer) {
     strokeWeight(6);
     stroke(255, 0, 0);
     point(x1, y1);
+       
     
     strokeWeight(1);  // IMPORTANT POUR EVITER EFFET DE BORD
 
@@ -48,12 +49,13 @@ void drawCurve (int start, int spacer) {
     String s = Integer.toBinaryString(j/spacer+start);
     text(""+s, 20, y1);  
     //// abscisses
-    text(""+floor(i*LSB), x1, height-12); // affichage avec vraie valeur
+    text(""+floor(i*5), x1, height-12); // affichage avec vraie valeur  (à chnager le 5 par LSB et voir impact sur screen default!!!!!!)
     // affichage en formule avec q
     //text(""+i, x1, height-12); 
     //text("xq", x1, height-6);
 
     // next item
     j = j + spacer;  // en fin de bloc, important sinon j=0 ne sera jamais traité
+    
   }
 }

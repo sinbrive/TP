@@ -2,7 +2,7 @@
 //////////////////////////////////////////
 void screenBinary() {
 
-  LSB=1;
+  LSB=1;  // à revoir !!!
 
   cp5.get(Textarea.class, "adcValue").moveTo("default");
 
@@ -65,6 +65,7 @@ void screenCurve() {
   drawFrame(20);  // 20 = space between
 
   drawCurve(startValue, 20); // 20 = space between
+  
 }
 
 
@@ -145,9 +146,11 @@ void placeItem() {
   cp5.get(Button.class, "FermerPortSerie").moveTo("Communication");
 
   cp5.get(Numberbox.class, "coefficient en mv").moveTo("Simulation"); 
-  cp5.get(Numberbox.class, "quantum (mv)").moveTo("Simulation"); 
   cp5.get(Textarea.class, "Température").moveTo("Simulation");
   cp5.get(Slider.class, "Tension (milliV)").moveTo("Simulation");
+  cp5.get(Numberbox.class, "quantum (mv)").moveTo("Simulation"); 
+
+  
 }
 
 
