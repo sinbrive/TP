@@ -111,7 +111,7 @@ void setup () {
     .setRange(0, 200)
     .setMultiplier(0.1) // set the sensitifity of the numberbox
     .setDirection(Controller.HORIZONTAL) // change the control direction to left/right
-    .setValue(5)
+    .setValue(4)
     ;
     
     
@@ -121,7 +121,7 @@ void setup () {
     .setRange(0, 200)
     .setMultiplier(1) // set the sensitifity of the numberbox
     .setDirection(Controller.HORIZONTAL) // change the control direction to left/right
-    .setValue(10)
+    .setValue(8)
     ;
 
   // description : a toggle can have two states, true and false

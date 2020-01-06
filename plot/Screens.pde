@@ -47,6 +47,11 @@ void screenBinary() {
     textAlign(LEFT);
     fill(0);
     text((int)pow(2, i), 15+((10-i)*25), 515);
+    textSize(12);
+    fill(255,255,0);
+    noStroke();
+    text("Choisir l'Abscisse (en mv) de départ ", 400, 510);    
+    text("pour le tracé de la courbe", 400, 530);
   }
 }
 
@@ -104,7 +109,12 @@ void screenSimu() {
   
    // affichage de la tension
   celsius.clear();
-  celsius.append(" "+ Float.toString(Math.round((tension/coefficient) * 100.0) / 100.0));  /// A FAIRE ENTRER PARAM CAPTEUR
+  celsius.append(" "+ Float.toString(Math.round((tension/coefficient) * 100.0) / 100.0));  
+  
+  fill(255, 255, 0);
+  textSize(15);
+  text ("Pour simuler régler ces valeurs : ", 170, 400);
+  text ("quantum et coefficient du capteur", 170, 420);
 
 }
 
