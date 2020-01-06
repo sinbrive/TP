@@ -20,7 +20,7 @@ void screenOne() {
 
   String s = Integer.toBinaryString(adc);
   s = "00000000000"+s;
-  s = s.substring(s.length()-11);
+  s = s.substring(s.length()-10);
 
   // affichage de la sortie du CAN
   adcValue.clear();
@@ -31,10 +31,11 @@ void screenOne() {
   tension_mV.append(" "+ Integer.toString(floor(tension)));
 
   // affichage des bits sous forme de recttangle colorie
-  for (int i=0; i<11; i++) {        
+  for (int i=0; i<10; i++) {  
+    //delay(7);
     //stroke(255);
     fill(getCol(adc, i));            
-    rect(10+((11-i)*25), 210, 20, 20);  // draw rectangle
+    rect(10+((10-i)*25), 210, 20, 20);  // draw rectangle
   }  
 
 
@@ -45,15 +46,16 @@ void screenOne() {
   text ("Couleurs des poids", 120, 490);
 
   stroke(255);
-  for (int i=0; i<11; i++) {        
+  for (int i=0; i<10; i++) {  
+    //delay(7);
     fill(col[i]);            
-    rect(10+((11-i)*25), 500, 20, 20);  // draw rectangle
+    rect(10+((10-i)*25), 500, 20, 20);  // draw rectangle
 
     //
     textSize(8);
     textAlign(LEFT);
     fill(0);
-    text((int)pow(2, i), 15+((11-i)*25), 515);
+    text((int)pow(2, i), 15+((10-i)*25), 515);
   }
 }
 
@@ -93,4 +95,15 @@ void setFieldVisible(boolean f) {
   cp5.get(ScrollableList.class, "Choisir Port Serie").setVisible(f);
   cp5.get(Button.class, "OuvrirPortSerie").setVisible(f);
   cp5.get(Button.class, "FermerPortSerie").setVisible(f);
+  for (int i=0; i<10; i++) {
+    togl[i].setVisible(f);
+  }
+}
+
+
+void razBits () {
+  for (int i=0; i<10; i++) {
+    togl[i].setValue(false);
+    //println("--"+togl[i].getValue()+"  "+tension);
+  }
 }

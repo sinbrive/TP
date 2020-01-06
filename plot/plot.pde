@@ -13,27 +13,29 @@ final byte  SCREEN_1 =1;
 final byte  SCREEN_2 =2;
 final byte  SCREEN_3 =3;
 
-color[] col={#FA5858, #FE9A2E, #F7FE2E, #2EFE2E, #F2F5A9, #58FAD0, #CC2EFA, #FE2E9A, 150, 150, 150};
+color[] col= new color[] {#FA5858, #FE9A2E, #F7FE2E, #2EFE2E, #F2F5A9, #58FAD0, #CC2EFA, #FE2E9A, #FE2E00, #FA0058};
 
 int startValue;  // N de départ pour la courbe
 
-float LSB=0.0;
-int adc =128+32+8+4+1;
+float LSB=3.0;
+int adc =0;
 boolean adcOK=false;
 String trameN="0", trameV="0";
 float tension=0.0;
 
 int machineState=SCREEN_1;
 
+Toggle[] togl = new Toggle[10];
+
 void setup () {
   // set the window size:
   size(600, 600);
 
-  frameRate(10);
+  frameRate(7);
   // initialisation de la bibliotheque controlP5
   cp5 = new ControlP5(this);
   // on bloque temporairement les événements pendant la création des widgets 
-  // cp5.setBroadcast(false);
+  //cp5.setBroadcast(false);
   PFont font = createFont("arial", 15);
 
   initIHMSerie();
@@ -72,7 +74,6 @@ void setup () {
   ;
   adcValue.setText("Tension");
 
-
   // parameters  : name, value (float), x, y, width, height
   cp5.addButton("Plus", 1, 350, 180, 60, 20);
   cp5.addButton("RAZ", 1, 350, 210, 60, 20);
@@ -107,7 +108,7 @@ void setup () {
     .setRange(0, 200)
     .setMultiplier(0.01) // set the sensitifity of the numberbox
     .setDirection(Controller.HORIZONTAL) // change the control direction to left/right
-    .setValue(5)
+    .setValue(3)
     ;
 
 
@@ -119,9 +120,24 @@ void setup () {
     .setColor(color(255, 0, 0))
     ;
 
+  //  // parameters  : name, value (float), x, y, width, height
+  //   for(int i=0;i<col.length;i++) {
+  //  cp5.addBang(""+i,20+i*30,200,20,20).setId(i);
+  //}
+
+
+  // description : a toggle can have two states, true and false
+  // where true has the value 1 and false is 0.
+  // parameters : name, default value (boolean), x, y, width, height
+  for (int i=0; i<10; i++) {        
+    fill(col[i]); 
+    togl[i]=cp5.addToggle("   b"+i, false, 10+((10-i)*25), 250, 20, 20).setId(i);
+  }
+    textFont(font);
+
   // les widgets sont tous créés, on réactive les événements
-  cp5.setBroadcast(true);
-  textFont(font);
+ // cp5.setBroadcast(true);
+
 }
 
 
@@ -138,106 +154,4 @@ void draw () {
   case SCREEN_3 :
     break;
   }
-
-
-
-  //// draw the line:
-  //stroke(127, 34, 255);
-  //line(xPos, height, xPos, height - yPos);
-
-  //// at the edge of the screen, go back to the beginning:
-  //if (xPos >= width) {
-  //  xPos = 0;
-  //  background(0);
-  //} else {
-  //  // increment the horizontal position:
-  //  //xPos++;
-  //}
 }
-
-
-void controlEvent(ControlEvent theEvent) {
-  /* events triggered by controllers are automatically forwarded to 
-   the controlEvent method. by checking the name of a controller one can 
-   distinguish which of the controllers has been changed.
-   */
-
-  /* check if the event is from a controller otherwise you'll get an error
-   when clicking other interface elements like Radiobutton that don't support
-   the controller() methods
-   */
-
-  if (theEvent.isController()) { 
-
-    //print("control event from : "+theEvent.getController().getName());
-    //println(", value : "+theEvent.getController().getValue());
-
-    //if(theEvent.getController().getName()=="bang1") {
-    //  colors[0] = colors[0] + color(40,40,0);
-    //  if(colors[0]>255) colors[0] = color(40,40,0);    
-    //}
-
-    // button
-    if (theEvent.getController().getName()=="Plus") {
-      if (adc<1024) adc++;
-      tension = floor(LSB*adc);
-    }
-
-    if (theEvent.getController().getName()=="Moins") {
-      if (adc>0) adc--;
-      tension = floor(LSB*adc);
-    }
-
-    if (theEvent.getController().getName()=="RAZ") {
-      adc=0;
-      tension = floor(LSB*adc);
-    }
-
-    //if (theEvent.getController().getName()=="toggle1") {
-    //  if (theEvent.getController().getValue()==1) colors[2] = color(0, 255, 255);
-    //  else                                 colors[2] = color(0, 0, 0);
-    //}
-
-    if (theEvent.getController().getName()=="courbe") {
-
-      if (machineState==SCREEN_2) {
-        machineState=SCREEN_1;
-        setFieldVisible(true);
-      } else {
-        machineState=SCREEN_2;
-        setFieldVisible(false);
-      }
-    }
-      // slider 
-      if (theEvent.getController().getName()=="Tension (milliV)") {
-        tension = theEvent.getController().getValue();
-        adc = floor(tension/LSB);
-        //println(floor(tension));
-      }
-
-      //if (theEvent.getController().getName()=="knob1") {
-      //  colors[5] = color(0, 0, theEvent.getController().getValue());
-      //}
-
-      // number box
-      if (theEvent.getController().getName()=="quantum (mv)") {
-        LSB = theEvent.getController().getValue();
-      }
-
-
-      // number box
-      if (theEvent.getController().getName()=="startValue(mV)") {
-        startValue = floor( (theEvent.getController().getValue()/LSB));
-        println(startValue);
-      }
-
-      // text field
-      if (theEvent.getController().getName()=="Valeur tension (mV) ?") {
-        String s = trim(theEvent.getStringValue());
-        tension = Integer.parseInt(s);
-        adc = int (tension/LSB);
-        //println(tension+" "+ adc);
-      }
-    }
-  
-  }
