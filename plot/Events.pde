@@ -1,7 +1,7 @@
 
 void controlEvent(ControlEvent theEvent) {
-  
-  
+
+
   if (theEvent.isController()) { 
 
     //print("control event from : "+theEvent.getController().getName());
@@ -26,7 +26,7 @@ void controlEvent(ControlEvent theEvent) {
       razBits();
     }
 
-   
+
     // slider 
     if (theEvent.getController().getName()=="Tension (milliV)") {
       tension = theEvent.getController().getValue();
@@ -71,9 +71,8 @@ void controlEvent(ControlEvent theEvent) {
       }
     }
   } //if (theEvent.isController()) { 
-  
-   if (theEvent.isTab()) {
-      machineState = theEvent.getTab().getId();
-    }
-  
+
+  if (theEvent.isTab()) {
+    machineState = theEvent.getTab().getId();
+  }
 }

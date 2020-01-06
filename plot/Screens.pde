@@ -2,14 +2,9 @@
 /////////////////////////////////////
 void screenBinary() {
 
-  setFieldVisible(true);
-  
   LSB=1;
-    
-  cp5.get(Slider.class, "Tension (milliV)").setVisible(false);
-  cp5.get(Numberbox.class, "quantum (mv)").setVisible(false); 
-  
-    
+
+  cp5.get(Textarea.class, "adcValue").moveTo("default");
 
   fill(255, 255, 0);
   textSize(20);
@@ -36,8 +31,6 @@ void screenBinary() {
     rect(10+((10-i)*25), 210, 20, 20);  // draw rectangle
   }  
 
-
-
   // affichage de la nomenclature couleur
   textSize(15);
   fill(255, 255, 0);
@@ -63,8 +56,6 @@ void screenBinary() {
 void screenCurve() {
 
   background(255);
-  
-  setFieldVisible(false);
 
   drawFrame(20);  // 20 = space between
 
@@ -74,29 +65,24 @@ void screenCurve() {
 
 //////////////////////////////////////////////
 void screenComm() {
-  
-  setFieldVisible(true);
-  ////delay(5000);
-   
-  //cp5.get(Textarea.class, "debug").setVisible(true);
-  
-  //cp5.get(Textarea.class, "tension (mV)").setVisible(true);
- 
-  //cp5.get(Numberbox.class, "quantum (mv)").setVisible(true); 
-  
- 
-  //cp5.get(ScrollableList.class, "Choisir Port Serie").setVisible(true);
-  //cp5.get(Button.class, "OuvrirPortSerie").setVisible(true);
-  //cp5.get(Button.class, "FermerPortSerie").setVisible(true);
 
- 
+  cp5.get(Textarea.class, "Température").moveTo("Communication");
+  fill(255, 255, 0);
+  textSize(15);
+  text ("Température Reçue", 170, 195);
 }
 
 //////////////////////////////////////////////
 void screenSimu() {
-
-  setFieldVisible(true);
+  
+  // order matters
+  cp5.get(Textarea.class, "adcValue").moveTo("Simulation");
+  cp5.get(Textarea.class, "Température").moveTo("Simulation");
  
+  fill(255, 255, 0);
+  textSize(15);
+  text ("CAN", 160, 175);  
+  text ("Température", 315, 175);
 }
 
 
@@ -108,25 +94,27 @@ color getCol(int adc, int i) {
   return color(150);
 }
 
-void setFieldVisible(boolean f) {
-  
+void placeItem() {
 
-  cp5.get(Slider.class, "Tension (milliV)").setVisible(f);
-  cp5.get(Textarea.class, "debug").setVisible(f);
-  cp5.get(Textarea.class, "adcValue").setVisible(f);
-  cp5.get(Textarea.class, "tension (mV)").setVisible(f);
-  cp5.get(Button.class, "Plus").setVisible(f);
-  cp5.get(Button.class, "Moins").setVisible(f);
-  cp5.get(Button.class, "RAZ").setVisible(f);
-  cp5.get(Numberbox.class, "quantum (mv)").setVisible(f); 
-  cp5.get(Numberbox.class, "startValue(mV)").setVisible(f); 
-  cp5.get(Textfield.class, "Valeur décimale ?").setVisible(f);
-  cp5.get(ScrollableList.class, "Choisir Port Serie").setVisible(f);
-  cp5.get(Button.class, "OuvrirPortSerie").setVisible(f);
-  cp5.get(Button.class, "FermerPortSerie").setVisible(f);
+  cp5.get(Numberbox.class, "startValue(mV)").moveTo("default"); 
+  cp5.get(Textfield.class, "Valeur décimale ?").moveTo("default");
+  cp5.get(Textarea.class, "adcValue").moveTo("default");
+  cp5.get(Textarea.class, "tension (mV)").moveTo("default");
+  cp5.get(Button.class, "Plus").moveTo("default");
+  cp5.get(Button.class, "Moins").moveTo("default");
+  cp5.get(Button.class, "RAZ").moveTo("default");
   for (int i=0; i<10; i++) {
-    togl[i].setVisible(f);
+    togl[i].moveTo("default");
   }
+
+  cp5.get(Textarea.class, "debug").moveTo("Communication");
+  cp5.get(ScrollableList.class, "Choisir Port Serie").moveTo("Communication");
+  cp5.get(Button.class, "OuvrirPortSerie").moveTo("Communication");
+  cp5.get(Button.class, "FermerPortSerie").moveTo("Communication");
+
+  cp5.get(Numberbox.class, "quantum (mv)").moveTo("Simulation"); 
+  cp5.get(Textarea.class, "Température").moveTo("Simulation");
+  cp5.get(Slider.class, "Tension (milliV)").moveTo("Simulation");
 }
 
 
@@ -136,3 +124,24 @@ void razBits () {
     //println("--"+togl[i].getValue()+"  "+tension);
   }
 }
+
+
+//void setFieldVisible(boolean f) {
+
+//  cp5.get(Slider.class, "Tension (milliV)").setVisible(f);
+//  cp5.get(Textarea.class, "debug").setVisible(f);
+//  cp5.get(Textarea.class, "adcValue").setVisible(f);
+//  cp5.get(Textarea.class, "tension (mV)").setVisible(f);
+//  cp5.get(Button.class, "Plus").setVisible(f);
+//  cp5.get(Button.class, "Moins").setVisible(f);
+//  cp5.get(Button.class, "RAZ").setVisible(f);
+//  cp5.get(Numberbox.class, "quantum (mv)").setVisible(f); 
+//  cp5.get(Numberbox.class, "startValue(mV)").setVisible(f); 
+//  cp5.get(Textfield.class, "Valeur décimale ?").setVisible(f);
+//  cp5.get(ScrollableList.class, "Choisir Port Serie").setVisible(f);
+//  cp5.get(Button.class, "OuvrirPortSerie").setVisible(f);
+//  cp5.get(Button.class, "FermerPortSerie").setVisible(f);
+//  for (int i=0; i<10; i++) {
+//    togl[i].setVisible(f);
+//  }
+//}

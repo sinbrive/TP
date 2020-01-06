@@ -54,25 +54,37 @@ void setup () {
     .setColorBackground(color(255, 100))
     .setColorForeground(color(255, 100));
   ;
+  
+  
+   adcValue = cp5.addTextarea("Température")
+    .setPosition(310, 180)
+    .setSize(100, 20)
+    .setFont(createFont("arial", 12))
+    .setLineHeight(14)
+    .setColor(color(128))
+    .setColorBackground(color(255, 100))
+    .setTitle("Temp")
+    .setColorForeground(color(255, 100));
+  
 
   adcValue = cp5.addTextarea("adcValue")
     .setPosition(160, 180)
     .setSize(100, 20)
     .setFont(createFont("arial", 12))
     .setLineHeight(14)
-    .setColor(color(128))
+    .setColor(color(255))
     .setColorBackground(color(255, 100))
     .setTitle("ADC")
     .setColorForeground(color(255, 100));
-  ;
-  adcValue.setText("ADC  ");
+  
+  //adcValue.setText("ADC  ");
 
   tension_mV = cp5.addTextarea("tension (mV)")
     .setPosition(30, 180)
     .setSize(100, 20)
     .setFont(createFont("arial", 12))
     .setLineHeight(14)
-    .setColor(color(128))
+    .setColor(color(255))
     .setColorBackground(color(255, 100))
     .setTitle("TENSION")
     .setColorForeground(color(255, 100));
@@ -102,16 +114,16 @@ void setup () {
     ;
 
   // parameters  : name, minimum, maximum, default value (float), x, y, width, height
-  cp5.addSlider("Tension (milliV)", 0, 500, 128, 430, 160, 30, 100);
+  cp5.addSlider("Tension (milliV)", 0, 500, 150, 100, 145, 30, 100);
 
   // parameters : name, default value (float), x, y,  width, height
   //cp5.addNumberbox("lsb",50,170,120,60,14);
 
   cp5.addNumberbox("quantum (mv)")
-    .setPosition(350, 300)
+    .setPosition(280, 340)
     .setSize(50, 20)
     .setRange(0, 200)
-    .setMultiplier(0.01) // set the sensitifity of the numberbox
+    .setMultiplier(0.1) // set the sensitifity of the numberbox
     .setDirection(Controller.HORIZONTAL) // change the control direction to left/right
     .setValue(3)
     ;
@@ -133,6 +145,11 @@ void setup () {
     fill(col[i]); 
     togl[i]=cp5.addToggle("   b"+i, false, 10+((10-i)*25), 250, 20, 20).setId(i);
   }
+
+  // rendre visible selon l'onglet
+  placeItem();
+  
+  
   textFont(font);
 
   // les widgets sont tous créés, on réactive les événements
@@ -149,6 +166,7 @@ void draw () {
         case 2: screenCurve(); break;
         case 3: screenComm(); break;       
         case 4: screenSimu(); break; 
+        default:
       }
       
 }
